@@ -1,34 +1,21 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Autumn Color Palette */
+  --tabasco-red: #AD2004;
+  --tulip-tree-gold: #EBB73D;
+  --reef-gold-olive: #9D8B1B;
+  --korma-brown: #8D4908;
+  --christi-green: #65AF1A;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* Elegant Light Theme - Warm Off-White */
+  --bg-dark: #FAF6F0;
+  --bg-dark-rgb: 250, 246, 240;
+  --bg-dark-gradient: radial-gradient(circle at center, #FCFAF7 0%, #F5EFE6 100%);
+  --text-light: #0A0A0A; /* Solid black for text */
+  --text-muted: #5E5047; /* Muted autumn brown-gray for secondary text */
+  --accent-gold: var(--korma-brown); /* Replaced bright gold with dark brown for highlights */
 
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Font styling */
+  --font-antonio-family: var(--font-antonio), 'Antonio', sans-serif;
 }
 
 * {
@@ -37,13 +24,967 @@ body {
   margin: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+html, body {
+  width: 100%;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: var(--font-antonio-family);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Scroll Runway - defines how long the scroll path is */
+.scroll-runway {
+  width: 100%;
+  height: 1120vh;
+  position: relative;
+  pointer-events: none;
+}
+
+/* Viewport - covers the screen and sets up 3D perspective */
+.viewport-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-dark-gradient);
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  z-index: 1; /* Sits below navbar */
+  pointer-events: none;
+}
+
+/* 3D Scene Wrapper - translates and rotates based on scroll or selection */
+.scene-3d {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* The Hallway corridor styles - Centered vertically with fixed height */
+.corridor {
+  position: absolute;
+  width: 1000px;
+  height: 600px; /* Fixed height corridor for perfect vertical centering */
+  left: 50%;
+  top: 50%;
+  margin-left: -500px;
+  margin-top: -300px; /* Vertical centering shift */
+  transform-style: preserve-3d;
+  pointer-events: none;
+  transform: scale3d(min(1, 95vw / 1000, 85vh / 600), min(1, 95vw / 1000, 85vh / 600), 1);
+  transform-origin: center center;
+}
+
+.floor-grid {
+  position: absolute;
+  width: 800px;
+  height: 12000px;
+  left: 100px;
+  top: 300px; /* Centered in corridor */
+  background: linear-gradient(to right, rgba(141, 73, 8, 0.08) 1px, transparent 1px);
+  background-size: 20px 100%;
+  transform: rotateX(90deg) translate3d(0, 0, -300px); /* Floor level Y = 300px */
+  transform-origin: top center;
+}
+
+.ceiling-grid {
+  position: absolute;
+  width: 800px;
+  height: 12000px;
+  left: 100px;
+  top: 300px; /* Centered in corridor */
+  background: 
+    linear-gradient(to bottom, transparent 95%, rgba(141, 73, 8, 0.12) 100%),
+    linear-gradient(to right, transparent 49%, rgba(141, 73, 8, 0.08) 50%, transparent 51%);
+  background-size: 100px 100px;
+  transform: rotateX(-90deg) translate3d(0, 0, -300px); /* Ceiling level Y = -300px */
+  transform-origin: top center;
+}
+
+/* Side guide rails along the corridor - NO GLOWS */
+.light-strip-left {
+  position: absolute;
+  left: 100px;
+  top: 300px;
+  width: 2px;
+  height: 12000px;
+  background: linear-gradient(to bottom, var(--korma-brown), transparent 80%);
+  transform: rotateX(90deg) translate3d(0, 0, -300px);
+  transform-origin: top center;
+}
+
+.light-strip-right {
+  position: absolute;
+  right: 100px;
+  top: 300px;
+  width: 2px;
+  height: 12000px;
+  background: linear-gradient(to bottom, var(--korma-brown), transparent 80%);
+  transform: rotateX(90deg) translate3d(0, 0, -300px);
+  transform-origin: top center;
+}
+
+/* Large Entrance and Exit Double Doors Frames */
+.door-frame {
+  position: absolute;
+  width: 800px; /* Centered width matching the corridor hallway gap */
+  left: 50%;
+  margin-left: -400px;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  transform-origin: center center;
+}
+
+.entrance-door-frame {
+  height: 100vh; /* Covers the full viewport height */
+  top: 0;
+  transform: translate3d(0, 0, -200px) scale3d(min(1, 95vw / 1000, 85vh / 600), min(1, 95vw / 1000, 85vh / 600), 1);
+}
+
+.exit-door-frame {
+  position: absolute;
+  width: 800px; /* Centered width matching the corridor hallway gap (1000px corridor - 100px margins) */
+  height: 100%; /* Matches the corridor height */
+  left: 100px; /* Aligns with floor-grid left edge */
+  top: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  transform: translate3d(0, 0, -9800px); /* Translated to the end of the corridor, inherits scale */
+}
+
+/* Double Doors styling - REMOVED FLEX and preserve-3d to fix Blink rendering bugs */
+.door-left, .door-right,
+.exit-door-left, .exit-door-right {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  border: 8px solid var(--korma-brown);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  pointer-events: auto; /* Let door interactive parts be clickable */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Pseudo element for the background texture to allow mirroring and scaling */
+.door-left::before, .exit-door-left::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/door_single.png');
+  background-color: #6a3e29;
+  background-size: 100% 100%;
+  z-index: -1; /* Draws behind the doorknob and signboard */
+}
+
+.door-right::before, .exit-door-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/door_single.png');
+  background-color: #6a3e29;
+  background-size: 100% 100%;
+  transform: scaleX(-1);
+  z-index: -1; /* Draws behind the doorknob and signboard */
+}
+
+/* Removed CSS transitions on transform to prevent JS scroll conflict shudders */
+.door-left, .exit-door-left {
+  left: 0;
+  transform-origin: left center;
+}
+
+.door-right, .exit-door-right {
+  right: 0;
+  transform-origin: right center;
+}
+
+/* Door handle knob - no glows, pushed in 3D Z-depth to avoid Z-fighting */
+.door-knob {
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, #ffd700, var(--korma-brown));
+  border: 1px solid var(--korma-brown);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 10px);
+}
+
+.door-left .door-knob, .exit-door-left .door-knob { right: 15px; }
+.door-right .door-knob, .exit-door-right .door-knob { left: 15px; }
+
+/* Interactive Hanging Signboard, pushed in 3D Z-depth to avoid Z-fighting */
+.signboard-container {
+  position: absolute;
+  top: 80px;
+  right: 40px;
+  width: 180px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 15px);
+  transform-style: preserve-3d;
+}
+
+/* Thread nail */
+.signboard-nail {
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  margin-bottom: 2px;
+}
+
+/* Signboard wooden plank */
+.signboard-wood {
+  width: 160px;
+  background: linear-gradient(135deg, #cd8f65 0%, #a46138 100%);
+  border: 3px solid #633215;
+  padding: 10px 6px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  transform-origin: top center;
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.signboard-text {
+  font-family: var(--font-antonio-family);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #0d0604;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+/* Hover swing animation */
+.signboard-wood.swinging, .signboard-wood:hover {
+  animation: swingSign 1.8s ease-in-out;
+}
+
+@keyframes swingSign {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(15deg); }
+  30% { transform: rotate(-12deg); }
+  45% { transform: rotate(9deg); }
+  60% { transform: rotate(-6deg); }
+  75% { transform: rotate(3deg); }
+  90% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Flanking brick walls beside the entrance doors - Positioned at Z = -200px */
+.brick-wall-panel {
+  position: absolute;
+  top: -200px;
+  height: 1000px;
+  width: 2500px;
+  background-image: url('/assets/wall.png');
+  background-size: 400px;
+  background-color: #ebd1bd;
+  background-blend-mode: multiply;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  pointer-events: none;
+  transform: translate3d(0, 0, -200px); /* Pushed back slightly to prevent camera lens clipping */
+}
+
+.brick-wall-left {
+  right: 50%;
+  margin-right: 400px; /* Aligns with door-left edge */
+  border-right: 8px solid var(--korma-brown);
+}
+
+.brick-wall-right {
+  left: 50%;
+  margin-left: 400px; /* Aligns with door-right edge */
+  border-left: 8px solid var(--korma-brown);
+}
+
+.entrance-banner {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translate3d(0, -50%, -210px);
+  text-align: center;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.entrance-banner h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  color: var(--korma-brown);
+  letter-spacing: 4px;
+  margin-bottom: 1rem;
+}
+
+.entrance-banner p {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+/* Section Title Markers in 3D Space - Hanging Wooden Boards */
+.section-marker-3d {
+  position: absolute;
+  width: 450px;
+  height: 120px;
+  left: 50%;
+  margin-left: -225px;
+  background: #552D13;
+  border: 4px solid #371c0b;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: var(--entrance-open-progress, 0);
+  transition: opacity 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+/* Hanging chains / ropes from the ceiling */
+.section-marker-3d::before {
+  content: '';
+  position: absolute;
+  top: -165px; /* Stretch up to the ceiling Y level */
+  left: 60px;
+  width: 3px;
+  height: 165px;
+  background: linear-gradient(to bottom, #111, #4a2306);
+  box-shadow: 1px 0 3px rgba(0,0,0,0.5);
+}
+
+.section-marker-3d::after {
+  content: '';
+  position: absolute;
+  top: -165px;
+  right: 60px;
+  width: 3px;
+  height: 165px;
+  background: linear-gradient(to bottom, #111, #4a2306);
+  box-shadow: -1px 0 3px rgba(0,0,0,0.5);
+}
+
+.section-marker-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #fdfaf6;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.section-marker-subtitle {
+  font-size: 0.75rem;
+  color: #FFE875; /* Visible light yellow sub-line */
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  margin: 0;
+}
+
+/* Translucent Light Theme Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.5rem 2rem;
+  background: rgba(250, 246, 240, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(141, 73, 8, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  pointer-events: auto; /* Enable navbar clicks explicitly */
+}
+
+.navbar.scrolled {
+  padding: 1rem 2rem;
+  background: rgba(250, 246, 240, 0.85);
+}
+
+.nav-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--korma-brown);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+}
+
+.nav-item button {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-family: var(--font-antonio-family);
+  font-size: 1.05rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.2rem 0;
+}
+
+.nav-item button:hover {
+  color: var(--tabasco-red);
+}
+
+.nav-item button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--tabasco-red);
+  transition: width 0.3s ease;
+}
+
+.nav-item button.active {
+  color: var(--tabasco-red);
+}
+
+.nav-item button.active::after {
+  width: 100%;
+}
+
+/* 3D Artwork Cards */
+.artwork-3d-card {
+  position: absolute;
+  width: 260px;
+  height: 350px;
+  left: 50%; /* Start centered horizontally in the corridor */
+  top: 125px; /* Vertically centered in 600px corridor (600 - 350)/2 = 125px */
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+  pointer-events: auto; /* Enable card clicks explicitly */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Left Wall Alignment */
+.artwork-left {
+  transform: rotateY(90deg);
+  transform-origin: left center;
+}
+
+/* Right Wall Alignment */
+.artwork-right {
+  transform: rotateY(-90deg);
+  transform-origin: right center;
+  margin-left: -260px; /* Shift card width so right edge aligns with the corridor center before X translation */
+}
+
+.artwork-frame {
+  width: 100%;
+  height: 100%;
+  background: #fdfaf6;
+  border: 12px solid var(--korma-brown);
+  border-image: linear-gradient(135deg, var(--korma-brown) 0%, #aa5f17 100%) 12;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.artwork-3d-card:hover .artwork-frame {
+  border-color: var(--tabasco-red);
+  box-shadow: 0 15px 35px rgba(173, 32, 4, 0.15);
+}
+
+.artwork-canvas {
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Image Placeholder Style */
+.artwork-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(141, 73, 8, 0.2) 0%, rgba(173, 32, 4, 0.25) 100%);
+  color: var(--text-light);
+  border: 1px solid rgba(141, 73, 8, 0.15);
+}
+
+.placeholder-cat {
+  font-size: 0.8rem;
+  color: var(--korma-brown);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.placeholder-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  color: var(--text-light);
+}
+
+.placeholder-price {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--tabasco-red);
+  letter-spacing: 1px;
+}
+
+/* 3D Label Placed under/near the painting on the wall */
+.artwork-wall-label {
+  position: absolute;
+  bottom: -35px;
+  left: 5%;
+  width: 90%;
+  padding: 4px 8px;
+  background: rgba(250, 246, 240, 0.9);
+  border-left: 2px solid var(--tabasco-red);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.artwork-wall-label span {
+  float: right;
+  color: var(--tabasco-red);
+}
+
+/* Detail View Layout (Side Panned Modal) */
+.detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 200; /* High z-index */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: rgba(250, 246, 240, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  pointer-events: none;
+}
+
+.detail-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto; /* Enable drawer panel interactions */
+}
+
+/* Detail Zoom 2D Card on the Left half */
+.detail-zoom-portrait-wrapper {
+  position: absolute;
+  left: calc((100vw - 450px) / 2);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px; /* Sized to match panned 3D card */
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  z-index: 210;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.detail-overlay.active .detail-zoom-portrait-wrapper {
+  opacity: 1;
+}
+
+.detail-zoom-frame {
+  width: 100%;
+  height: 100%;
+  background: #fdfaf6;
+  border: 12px solid var(--korma-brown);
+  border-image: linear-gradient(135deg, var(--korma-brown) 0%, #aa5f17 100%) 12;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-zoom-canvas {
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.detail-zoom-label {
+  position: relative;
+  bottom: auto;
+  left: 0;
+  width: 100%;
+  margin-top: 15px;
+  background: rgba(250, 246, 240, 0.95);
+  border-left: 3px solid var(--tabasco-red);
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.detail-zoom-label span {
+  float: right;
+  color: var(--tabasco-red);
+  font-weight: bold;
+}
+
+.detail-container {
+  width: 450px;
+  height: 100%;
+  background: rgba(255, 253, 250, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(141, 73, 8, 0.15);
+  padding: 5rem 3rem 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.08);
+  transform: translateX(100%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.detail-overlay.active .detail-container {
+  transform: translateX(0);
+}
+
+.detail-close-btn {
+  position: absolute;
+  top: 2rem;
+  left: -60px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 253, 250, 0.95);
+  border: 1px solid rgba(141, 73, 8, 0.2);
+  color: var(--korma-brown);
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
+  pointer-events: auto;
+}
+
+.detail-close-btn:hover {
+  background: var(--tabasco-red);
+  color: #fff;
+  border-color: var(--tabasco-red);
+}
+
+.detail-section-tag {
+  color: var(--tabasco-red);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+
+.detail-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.detail-specs {
+  border-top: 1px solid rgba(141, 73, 8, 0.15);
+  border-bottom: 1px solid rgba(141, 73, 8, 0.15);
+  padding: 1.2rem 0;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.detail-spec-item {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.detail-spec-item strong {
+  color: var(--text-light);
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.detail-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.detail-price-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.5rem;
+}
+
+.detail-price-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.2rem;
+}
+
+.detail-price {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--tabasco-red);
+}
+
+.detail-inquire-btn {
+  width: 100%;
+  padding: 1.1rem 2rem;
+  background: var(--tabasco-red);
+  color: #fff;
+  border: 1px solid var(--tabasco-red);
+  font-family: var(--font-antonio-family);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.detail-inquire-btn:hover {
+  background: transparent;
+  border-color: var(--tabasco-red);
+  color: var(--tabasco-red);
+}
+
+/* 3D Footer Wall at the end of the corridor */
+.footer-wall {
+  position: absolute;
+  width: 1000px;
+  height: 600px;
+  left: 0;
+  top: 0; /* Align with top of corridor */
+  transform-style: preserve-3d;
+  pointer-events: none;
+  opacity: var(--exit-open-progress, 0);
+  transition: opacity 0.3s ease;
+}
+
+.footer-content-panel {
+  position: absolute;
+  width: 800px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, rgba(255, 253, 250, 0.9) 0%, rgba(250, 246, 240, 0.95) 100%);
+  border: 3px solid var(--korma-brown);
+  padding: 4rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  text-align: center;
+  pointer-events: auto; /* Make footer links clickable */
+}
+
+.footer-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--korma-brown);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.footer-item h3 {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.footer-item p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.footer-item a {
+  color: var(--tabasco-red);
+  transition: color 0.3s;
+}
+
+.footer-item a:hover {
+  color: var(--korma-brown);
+}
+
+.footer-copyright {
+  border-top: 1px solid rgba(141, 73, 8, 0.15);
+  padding-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* Responsive adjustments for 2D UI layers */
+@media (max-width: 900px) {
+  .detail-container {
+    width: 100vw;
+    padding-top: 6rem;
+  }
+  
+  .detail-close-btn {
+    left: 2rem;
+    top: 2rem;
   }
 }
+
+@media (max-width: 650px) {
+  .nav-links {
+    display: none;
+  }
+
+  .detail-container {
+    width: 100vw;
+    padding-top: 6rem;
+  }
+  
+  .detail-close-btn {
+    left: 2rem;
+    top: 2rem;
+  }
+}
+
+/* Page fade-in utilities driven by CSS variables */
+.artwork-fade-in {
+  width: 100%;
+  height: 100%;
+  opacity: var(--entrance-open-progress, 0);
+  transition: opacity 0.3s ease;
+}
+
+/* Audio Toggle Button in Navbar */
+.audio-toggle-btn {
+  background: none;
+  border: 1px solid rgba(141, 73, 8, 0.2);
+  border-radius: 50%;
+  color: var(--korma-brown);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.audio-toggle-btn:hover {
+  border-color: var(--tabasco-red);
+  color: var(--tabasco-red);
+  background: rgba(173, 32, 4, 0.05);
+  transform: scale(1.08);
+}
+
+.audio-toggle-btn.muted {
+  color: var(--text-light);
+  border-color: rgba(141, 73, 8, 0.1);
+}
+
+
+
+/* Symmetrical Spotlight Cones above painting frames */
+.artwork-spotlight {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 140px;
+  background: radial-gradient(ellipse at top, rgba(253, 250, 246, 0.28) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: overlay;
+}
+
+
