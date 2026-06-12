@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { preload } from 'react-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Analytics } from "@vercel/analytics/next";
 import ArtworkCard from '../components/ArtworkCard';
 import DetailView from '../components/DetailView';
 import { artworksList, sectionDepths, Artwork } from '../data/artworks';
