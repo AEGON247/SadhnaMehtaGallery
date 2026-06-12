@@ -104,6 +104,20 @@ export const artworkData: Record<string, Artwork> = {
     rotationY: -90, // Right wall
     position: { x: 380, y: 0, z: -3400 }
   },
+  'portrait-7': {
+    id: 'portrait-7',
+    title: 'Quiet Introspection',
+    artist: 'Sadhna Mehta',
+    year: 2024,
+    medium: 'Oil on Canvas',
+    dimensions: '80 x 100 cm',
+    description: 'An intimate portrait that balances stillness and subtle emotion, rendered with luminous color and depth.',
+    price: 260000,
+    section: 'portraits',
+    imageUrl: '/assets/portrait-7.jpeg',
+    rotationY: 90, // Left wall
+    position: { x: -380, y: 0, z: -3800 }
+  },
 
   // --- LANDSCAPES SECTION (Segment 2: X: 0 to -3800, Z: -3800, Y-Rot: 90) ---
   // Left wall of Segment 2 is at Z = -3420 (facing -Z, rotationY: 180)

@@ -57,11 +57,14 @@ export default function ArtworkCard({ artwork, onClick, isBlurred, isSelected, i
       <div className="artwork-fade-in">
         <div className="artwork-spotlight" />
         <div className="artwork-frame">
-          <div 
-            className="artwork-canvas"
-            style={artwork.imageUrl ? { backgroundImage: `url(${artwork.imageUrl})` } : {}}
-          >
-            {!artwork.imageUrl && (
+          <div className="artwork-canvas">
+            {artwork.imageUrl ? (
+              <img
+                src={artwork.imageUrl}
+                alt={artwork.title}
+                className="artwork-canvas-image"
+              />
+            ) : (
               <div 
                 className="artwork-placeholder" 
                 style={{ background: getGradient() }}
