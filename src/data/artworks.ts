@@ -32,7 +32,7 @@ export const artworkData: Record<string, Artwork> = {
     section: 'portraits',
     imageUrl: '/assets/portrait-1.jpeg',
     rotationY: 90, // Left wall
-    position: { x: -380, y: 0, z: -1400 }
+    position: { x: -380, y: 0, z: -1200 }
   },
   'portrait-2': {
     id: 'portrait-2',
@@ -60,7 +60,7 @@ export const artworkData: Record<string, Artwork> = {
     section: 'portraits',
     imageUrl: '/assets/portrait-3.jpeg',
     rotationY: 90, // Left wall
-    position: { x: -380, y: 0, z: -2200 }
+    position: { x: -380, y: 0, z: -2000 }
   },
   'portrait-4': {
     id: 'portrait-4',
@@ -88,7 +88,7 @@ export const artworkData: Record<string, Artwork> = {
     section: 'portraits',
     imageUrl: '/assets/portrait-5.jpeg',
     rotationY: 90, // Left wall
-    position: { x: -380, y: 0, z: -3000 }
+    position: { x: -380, y: 0, z: -2800 }
   },
   'portrait-6': {
     id: 'portrait-6',
@@ -104,20 +104,7 @@ export const artworkData: Record<string, Artwork> = {
     rotationY: -90, // Right wall
     position: { x: 380, y: 0, z: -3400 }
   },
-  'portrait-7': {
-    id: 'portrait-7',
-    title: 'Quiet Introspection',
-    artist: 'Sadhna Mehta',
-    year: 2024,
-    medium: 'Oil on Canvas',
-    dimensions: '80 x 100 cm',
-    description: 'An intimate portrait that balances stillness and subtle emotion, rendered with luminous color and depth.',
-    price: 260000,
-    section: 'portraits',
-    imageUrl: '/assets/portrait-7.jpeg',
-    rotationY: 90, // Left wall
-    position: { x: -380, y: 0, z: -3800 }
-  },
+
 
   // --- LANDSCAPES SECTION (Segment 2: X: 0 to -3800, Z: -3800, Y-Rot: 90) ---
   // Left wall of Segment 2 is at Z = -3420 (facing -Z, rotationY: 180)
@@ -206,14 +193,15 @@ export const artworkData: Record<string, Artwork> = {
   // Right wall of Segment 3 is at X = -3420 (facing -X, rotationY: -90)
   'abstract-1': {
     id: 'abstract-1',
-    title: 'Cosmic Dance',
+    title: 'Quiet Introspection',
     artist: 'Sadhna Mehta',
     year: 2024,
-    medium: 'Acrylic on Canvas',
-    dimensions: '100 x 100 cm',
-    description: 'An explosion of color and form representing the chaotic beauty of the universe. Lines and shapes intertwine in cosmic harmony.',
-    price: 220000,
+    medium: 'Oil on Canvas',
+    dimensions: '80 x 100 cm',
+    description: 'An intimate portrait that balances stillness and subtle emotion, rendered with luminous color and depth.',
+    price: 260000,
     section: 'abstracts',
+    imageUrl: '/assets/portrait-7.jpeg',
     rotationY: 90, // Left wall
     position: { x: -4180, y: 0, z: -4600 }
   },

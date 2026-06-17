@@ -414,8 +414,8 @@ export default function Home() {
             <div className="ceiling-grid segment-1-ceiling" style={{ width: '800px', height: '4200px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(0px, -300px, -4200px) rotateX(-90deg)', transformOrigin: 'top center' }} />
 
             {/* Corridor Segment 2 Floor & Ceiling (X-axis corridor turning left) */}
-            <div className="floor-grid segment-2-floor" style={{ width: '3800px', height: '800px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 300px, -3400px) rotateX(90deg)', transformOrigin: 'top left', backgroundSize: '20px 20px' }} />
-            <div className="ceiling-grid segment-2-ceiling" style={{ width: '3800px', height: '800px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, -300px, -4200px) rotateX(-90deg)', transformOrigin: 'top left', backgroundSize: '100px 100px' }} />
+            <div className="floor-grid segment-2-floor" style={{ width: '3800px', height: '800px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 300px, -3400px) rotateX(90deg)', transformOrigin: 'top left' }} />
+            <div className="ceiling-grid segment-2-ceiling" style={{ width: '3800px', height: '800px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, -300px, -4230px) rotateX(-90deg)', transformOrigin: 'top left', backgroundSize: '100px 100px' }} />
 
             {/* Corridor Segment 3 Floor & Ceiling (Z-axis corridor turning right) */}
             <div className="floor-grid segment-3-floor" style={{ width: '800px', height: '4200px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 300px, -3800px) rotateX(90deg)', transformOrigin: 'top center' }} />

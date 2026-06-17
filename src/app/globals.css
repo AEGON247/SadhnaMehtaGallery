@@ -87,10 +87,36 @@ html, body {
   height: 12000px;
   left: 100px;
   top: 300px; /* Centered in corridor */
-  background: linear-gradient(to right, rgba(141, 73, 8, 0.08) 1px, transparent 1px);
-  background-size: 20px 100%;
   transform: rotateX(90deg) translate3d(0, 0, -300px); /* Floor level Y = 300px */
   transform-origin: top center;
+  background-color: #FAF6F0;
+  box-shadow: inset 0 0 100px rgba(85, 45, 19, 0.08); /* Faint ambient shading */
+}
+
+/* 
+  Plank dimensions:
+  --plank-width: 80px
+  --plank-length: 300px
+*/
+.segment-1-floor,
+.segment-3-floor {
+  background-image: 
+    /* Soft light falloff / shadow near left and right walls */
+    linear-gradient(to right, rgba(85, 45, 19, 0.05) 0%, transparent 15%, transparent 85%, rgba(85, 45, 19, 0.05) 100%),
+    /* Staggered vertical wood plank pattern */
+    url("/assets/floor_vertical.svg?v=2");
+  background-size: 100% 100%, 160px 300px;
+  background-repeat: no-repeat, repeat;
+}
+
+.segment-2-floor {
+  background-image: 
+    /* Soft light falloff / shadow near top and bottom walls (Z-axis boundary of Segment 2) */
+    linear-gradient(to bottom, rgba(85, 45, 19, 0.05) 0%, transparent 15%, transparent 85%, rgba(85, 45, 19, 0.05) 100%),
+    /* Staggered horizontal wood plank pattern */
+    url("/assets/floor_horizontal.svg?v=2");
+  background-size: 100% 100%, 300px 160px;
+  background-repeat: no-repeat, repeat;
 }
 
 .ceiling-grid {

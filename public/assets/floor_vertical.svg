@@ -1,0 +1,15 @@
+<svg width="160" height="300" viewBox="0 0 160 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="300" fill="#FAF6F0" />
+  <line x1="0" y1="0" x2="0" y2="300" stroke="#8D4908" stroke-width="1.5" stroke-opacity="0.4" />
+  <line x1="80" y1="0" x2="80" y2="300" stroke="#8D4908" stroke-width="1.5" stroke-opacity="0.4" />
+  <line x1="160" y1="0" x2="160" y2="300" stroke="#8D4908" stroke-width="1.5" stroke-opacity="0.4" />
+  <line x1="0" y1="0" x2="80" y2="0" stroke="#8D4908" stroke-width="1.5" stroke-opacity="0.4" />
+  <line x1="0" y1="300" x2="80" y2="300" stroke="#8D4908" stroke-width="1.5" stroke-opacity="0.4" />
+  <line x1="80" y1="150" x2="160" y2="150" stroke="#8D4908" stroke-width="1.5" stroke-opacity="0.4" />
+  <path d="M 15 0 Q 22 75 18 190 T 22 300" fill="none" stroke="#8D4908" stroke-width="1" stroke-opacity="0.2" />
+  <path d="M 35 0 Q 30 150 38 300" fill="none" stroke="#8D4908" stroke-width="1" stroke-opacity="0.15" />
+  <path d="M 60 0 Q 65 75 58 150 T 63 300" fill="none" stroke="#8D4908" stroke-width="1" stroke-opacity="0.2" />
+  <path d="M 95 0 Q 102 75 98 190 T 102 300" fill="none" stroke="#8D4908" stroke-width="1" stroke-opacity="0.2" />
+  <path d="M 120 0 Q 115 150 123 300" fill="none" stroke="#8D4908" stroke-width="1" stroke-opacity="0.15" />
+  <path d="M 145 0 Q 138 75 142 150 T 138 300" fill="none" stroke="#8D4908" stroke-width="1" stroke-opacity="0.2" />
+</svg>
