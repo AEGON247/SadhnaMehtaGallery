@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { preload } from 'react-dom';
 import Navbar from '../components/Navbar';
+import { FaPalette, FaExclamationTriangle, FaHeart } from "react-icons/fa";
 import Footer from '../components/Footer';
 import { Analytics } from "@vercel/analytics/next";
 import ArtworkCard from '../components/ArtworkCard';
@@ -70,6 +71,11 @@ export default function Home() {
   // Cinematic states
   const [runwayHeight, setRunwayHeight] = useState<string>('15000px');
 
+  // Splash & Blocker States
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashFadeOut, setSplashFadeOut] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+
   // Refs for smooth scroll interpolation
   const targetScrollZ = useRef(0);
   const currentScrollZ = useRef(0);
@@ -98,11 +104,28 @@ export default function Home() {
   // S extends to 13450, stopping the camera at Z = -7650 (150px before footer wall at Z = -7800)
   const maxDepth = 13450; 
 
+  // Handle mobile/tablet detection on mount and resize
   useEffect(() => {
-    setRunwayHeight(`${maxDepth + window.innerHeight}px`);
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
+    if (!isDesktop) return;
+    setRunwayHeight(`${maxDepth + window.innerHeight}px`);
+  }, [isDesktop]);
+
+  useEffect(() => {
+    if (showSplash || !isDesktop) {
+      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+      isLoopRunning.current = false;
+      return;
+    }
+
     const updateScene = () => {
       if (needsRequeryRef.current && sceneRef.current) {
         const els = sceneRef.current.querySelectorAll('.artwork-3d-card, .section-marker-3d, .door-frame, .exit-door-frame, .footer-wall, .brick-wall-panel, .entrance-banner');
@@ -249,10 +272,11 @@ export default function Home() {
       if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
       isLoopRunning.current = false;
     };
-  }, [focusState]);
+  }, [focusState, showSplash, isDesktop]);
 
   // Two-Step Camera Focus Logic
   useEffect(() => {
+    if (!isDesktop) return;
     if (sceneRef.current && selectedArtwork) {
       const { x, z } = selectedArtwork.position;
       const ry = selectedArtwork.rotationY;
@@ -296,11 +320,11 @@ export default function Home() {
         return () => clearTimeout(timer);
       }
     }
-  }, [focusState, selectedArtwork]);
+  }, [focusState, selectedArtwork, isDesktop]);
 
-  // Lock document scroll when zoomed in
+  // Lock document scroll when zoomed in, during splash, or on non-desktop
   useEffect(() => {
-    if (focusState !== 'none') {
+    if (focusState !== 'none' || showSplash || !isDesktop) {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     } else {
@@ -311,10 +335,11 @@ export default function Home() {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
-  }, [focusState]);
+  }, [focusState, showSplash, isDesktop]);
 
   // Quintic Easing Navigation
   const handleNavigate = (section: SectionType) => {
+    if (!isDesktop) return;
     if (focusState !== 'none') {
       isNavigatingRef.current = true;
       setFocusState('none');
@@ -410,16 +435,16 @@ export default function Home() {
           {/* Corridor elements */}
           <div className="corridor">
             {/* Corridor Segment 1 Floor & Ceiling (Z-axis corridor) */}
-            <div className="floor-grid segment-1-floor" style={{ width: '800px', height: '4200px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(0px, 300px, 0px) rotateX(90deg)', transformOrigin: 'top center' }} />
-            <div className="ceiling-grid segment-1-ceiling" style={{ width: '800px', height: '4200px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(0px, -300px, -4200px) rotateX(-90deg)', transformOrigin: 'top center' }} />
+            <div className="floor-grid segment-1-floor" style={{ width: '800px', height: '4200px', left: '100px', top: '0', position: 'absolute', transform: 'translate3d(0px, 600px, -4200px) rotateX(90deg)', transformOrigin: 'top center' }} />
+            <div className="ceiling-grid segment-1-ceiling" style={{ width: '800px', height: '4200px', left: '100px', top: '0', position: 'absolute', transform: 'translate3d(0px, 0px, 0px) rotateX(-90deg)', transformOrigin: 'top center' }} />
 
             {/* Corridor Segment 2 Floor & Ceiling (X-axis corridor turning left) */}
-            <div className="floor-grid segment-2-floor" style={{ width: '3800px', height: '800px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 300px, -3400px) rotateX(90deg)', transformOrigin: 'top left' }} />
-            <div className="ceiling-grid segment-2-ceiling" style={{ width: '3800px', height: '800px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, -300px, -4230px) rotateX(-90deg)', transformOrigin: 'top left', backgroundSize: '100px 100px' }} />
+            <div className="floor-grid segment-2-floor" style={{ width: '3800px', height: '800px', left: '100px', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 600px, -4200px) rotateX(90deg)', transformOrigin: 'top left' }} />
+            <div className="ceiling-grid segment-2-ceiling" style={{ width: '3800px', height: '800px', left: '100px', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 0px, -3400px) rotateX(-90deg)', transformOrigin: 'top left', backgroundSize: '100px 100px' }} />
 
             {/* Corridor Segment 3 Floor & Ceiling (Z-axis corridor turning right) */}
-            <div className="floor-grid segment-3-floor" style={{ width: '800px', height: '4200px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 300px, -3800px) rotateX(90deg)', transformOrigin: 'top center' }} />
-            <div className="ceiling-grid segment-3-ceiling" style={{ width: '800px', height: '4200px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-3800px, -300px, -8000px) rotateX(-90deg)', transformOrigin: 'top center' }} />
+            <div className="floor-grid segment-3-floor" style={{ width: '800px', height: '4200px', left: '100px', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 600px, -8000px) rotateX(90deg)', transformOrigin: 'top center' }} />
+            <div className="ceiling-grid segment-3-ceiling" style={{ width: '800px', height: '4200px', left: '100px', top: '0', position: 'absolute', transform: 'translate3d(-3800px, 0px, -3800px) rotateX(-90deg)', transformOrigin: 'top center' }} />
 
             {/* Guide Rails (Light Strips) for Segment 1 */}
             <div className="light-strip-left" style={{ width: '2px', height: '4200px', left: '0', top: '0', position: 'absolute', transform: 'translate3d(-400px, 300px, 0) rotateX(90deg)', transformOrigin: 'top left' }} />
@@ -494,6 +519,114 @@ export default function Home() {
 
       {/* Interactive Closeup Side panel */}
       <DetailView artwork={focusState === 'detail' ? selectedArtwork : null} onClose={handleCloseDetail} />
+
+      {/* Device Blocker for Mobile & Tablet viewports */}
+      <div className="device-blocker">
+        <div className="blocker-card">
+          {/* Header */}
+          <div className="blocker-header">
+            <img src="/assets/lotus_logo.png" className="blocker-logo" alt="Lotus logo" />
+            <h1 className="blocker-oops">
+              <img src="/assets/oops_sparkles_left.png" className="oops-sparkle" alt="" />
+              <span>Oops!</span>
+              <img src="/assets/oops_sparkles_right.png" className="oops-sparkle" alt="" />
+            </h1>
+            <h2 className="blocker-title">
+              We're not quite <span className="highlight-small">small</span> enough yet!
+            </h2>
+            <p className="blocker-desc">
+              Sorry for the inconvenience, but we're yet to come to <strong className="pink-text">your mobile screen.</strong>
+            </p>
+            <p className="blocker-desc secondary">
+              For now, our masterpiece looks best on larger canvases (aka desktops and laptops).
+            </p>
+          </div>
+
+          {/* Middle Illustration Section */}
+          <div className="blocker-middle">
+            {/* Left Box (HTML/CSS card) */}
+            <div className="blocker-computer-card">
+              <svg width="48" height="40" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="computer-smiley-icon">
+                <path d="M20 34L16 38H32L28 34H20Z" fill="#E67E7D" />
+                <rect x="22" y="30" width="4" height="4" fill="#E67E7D" />
+                <rect x="4" y="4" width="40" height="26" rx="4" stroke="#E67E7D" strokeWidth="3" fill="#FFF" />
+                <circle cx="18" cy="14" r="2.5" fill="#E67E7D" />
+                <circle cx="30" cy="14" r="2.5" fill="#E67E7D" />
+                <path d="M20 20C21.5 22 26.5 22 28 20" stroke="#E67E7D" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+              <p>
+                So grab your tablet... wait, no. Grab your laptop or desktop instead! Your eyes (and our art) will <span className="pink-text">thank you.</span>
+              </p>
+            </div>
+
+            {/* Right Illustration */}
+            <div className="blocker-illus-container">
+              <img src="/assets/mascotFullPainter.png" className="blocker-mascot-group" alt="Mascot and easel" />
+            </div>
+          </div>
+
+          {/* Bottom Panel */}
+          <div className="blocker-bottom">
+            <div className="bottom-item">
+              <div className="bottom-icon">
+                <FaPalette size={28} />
+              </div>
+              <div className="bottom-text">
+                <h3>Bigger is Better</h3>
+                <p>More space to create, explore and get inspired.</p>
+              </div>
+            </div>
+
+            <div className="bottom-item">
+              <div className="bottom-icon">
+                <FaExclamationTriangle size={28} />
+              </div>
+              <div className="bottom-text">
+                <h3>Full Experience</h3>
+                <p>All our tools and features shine brighter on bigger screens.</p>
+              </div>
+            </div>
+
+            <div className="bottom-item">
+              <div className="bottom-icon">
+                <FaHeart size={28} />
+              </div>
+              <div className="bottom-text">
+                <h3>Made with Love</h3>
+                <p>We're crafting the mobile experience with extra care.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Video Splash Screen overlay */}
+      {isDesktop && showSplash && (
+        <div className={`splash-screen ${splashFadeOut ? 'fade-out' : ''}`}>
+          <div className="splash-video-container">
+            <video
+              src="/assets/splashScreen.mp4"
+              autoPlay
+              muted
+              playsInline
+              onEnded={() => {
+                setSplashFadeOut(true);
+                setTimeout(() => setShowSplash(false), 800);
+              }}
+              className="splash-video"
+            />
+          </div>
+          <button 
+            className="splash-skip-btn"
+            onClick={() => {
+              setSplashFadeOut(true);
+              setTimeout(() => setShowSplash(false), 800);
+            }}
+          >
+            Enter Gallery
+          </button>
+        </div>
+      )}
     </>
   );
 }

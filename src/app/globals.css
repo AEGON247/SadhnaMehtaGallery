@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+
 :root {
   /* Autumn Color Palette */
   --tabasco-red: #AD2004;
@@ -104,7 +106,7 @@ html, body {
     /* Soft light falloff / shadow near left and right walls */
     linear-gradient(to right, rgba(85, 45, 19, 0.05) 0%, transparent 15%, transparent 85%, rgba(85, 45, 19, 0.05) 100%),
     /* Staggered vertical wood plank pattern */
-    url("/assets/floor_vertical.svg?v=2");
+    url("/assets/floor_vertical.png?v=3");
   background-size: 100% 100%, 160px 300px;
   background-repeat: no-repeat, repeat;
 }
@@ -114,7 +116,7 @@ html, body {
     /* Soft light falloff / shadow near top and bottom walls (Z-axis boundary of Segment 2) */
     linear-gradient(to bottom, rgba(85, 45, 19, 0.05) 0%, transparent 15%, transparent 85%, rgba(85, 45, 19, 0.05) 100%),
     /* Staggered horizontal wood plank pattern */
-    url("/assets/floor_horizontal.svg?v=2");
+    url("/assets/floor_horizontal.png?v=3");
   background-size: 100% 100%, 300px 160px;
   background-repeat: no-repeat, repeat;
 }
@@ -1019,5 +1021,423 @@ html, body {
   z-index: 2;
   mix-blend-mode: overlay;
 }
+
+/* Splash Screen Styles */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0A0A0A; /* Dark premium background for the video intro */
+  z-index: 9999999; /* Ensure it stays above everything */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.splash-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-video-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.splash-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the entire screen cleanly */
+}
+
+/* Skip/Enter button - elegant and minimalistic */
+.splash-skip-btn {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(250, 246, 240, 0.12);
+  border: 1px solid rgba(250, 246, 240, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #FAF6F0;
+  padding: 0.8rem 2rem;
+  font-family: var(--font-antonio-family);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  z-index: 10000000; /* Stays above the video overlay */
+}
+
+.splash-skip-btn:hover {
+  background: #FAF6F0;
+  color: #0A0A0A;
+  border-color: #FAF6F0;
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* Device Blocker Styles */
+.device-blocker {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 999999; /* Below the splash screen, above everything else */
+  overflow: hidden; /* Prevent scrolling entirely */
+  box-sizing: border-box;
+  font-family: 'Fredoka', 'Nunito', system-ui, -apple-system, sans-serif;
+  color: #4A271E;
+  
+  /* Soft watercolor theme paint splash background */
+  background: 
+    radial-gradient(circle at 85% 15%, rgba(253, 192, 203, 0.4) 0%, transparent 45%),
+    radial-gradient(circle at 12% 80%, rgba(253, 192, 203, 0.3) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(254, 230, 235, 0.1) 0%, transparent 60%),
+    #FEF8F6;
+  
+  align-items: center;
+  justify-content: center;
+  padding: 2.5dvh 4vw;
+}
+
+.blocker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  max-height: 94dvh;
+  max-width: 440px;
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.blocker-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8vh;
+  width: 100%;
+}
+
+.blocker-logo {
+  height: clamp(36px, 5.5vh, 52px);
+  width: auto;
+  object-fit: contain;
+}
+
+.blocker-oops {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0.4vh 0;
+  font-size: clamp(2rem, 4.5vh, 2.75rem);
+  font-weight: 700;
+  color: #EA3C5B;
+  font-family: 'Fredoka', sans-serif;
+  line-height: 1;
+}
+
+.oops-sparkle {
+  height: clamp(16px, 2.5vh, 24px);
+  width: auto;
+  object-fit: contain;
+}
+
+.blocker-title {
+  font-size: clamp(1.25rem, 3.2vh, 1.8rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #2A1713;
+  margin: 0 0 0.4vh 0;
+  max-width: 95%;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.highlight-small {
+  position: relative;
+  display: inline-block;
+  color: #EA3C5B;
+  font-weight: 700;
+}
+
+.small-underline {
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.blocker-divider-container {
+  margin: 0.2vh 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.blocker-divider {
+  height: clamp(14px, 2.3vh, 22px);
+  width: auto;
+  object-fit: contain;
+}
+
+.blocker-desc {
+  font-size: clamp(0.82rem, 1.9vh, 1rem);
+  line-height: 1.4;
+  color: #5C3A30;
+  margin: 0 auto;
+  max-width: 95%;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+}
+
+.blocker-desc.secondary {
+  font-size: clamp(0.72rem, 1.7vh, 0.9rem);
+  color: #7D5C52;
+  margin-top: 0.3vh;
+  font-weight: 400;
+  max-width: 90%;
+}
+
+.pink-text {
+  color: #EA3C5B;
+  font-weight: 700;
+}
+
+.blocker-middle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  margin: 1vh 0;
+}
+
+.blocker-computer-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #FCF0EF;
+  border-radius: 16px;
+  padding: clamp(10px, 1.8vh, 16px) clamp(8px, 1.8vw, 14px);
+  box-shadow: 0 4px 12px rgba(234, 60, 91, 0.03);
+  border: 1px solid rgba(234, 60, 91, 0.05);
+  text-align: left;
+  min-height: clamp(120px, 20vh, 180px);
+  max-width: 48%;
+  box-sizing: border-box;
+}
+
+.computer-smiley-icon {
+  height: clamp(32px, 5vh, 44px);
+  width: auto;
+  margin-bottom: 1vh;
+  align-self: center;
+}
+
+.blocker-computer-card p {
+  font-size: clamp(0.7rem, 1.6vh, 0.85rem);
+  line-height: 1.35;
+  color: #5C3A30;
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+}
+
+.blocker-illus-container {
+  flex: 1.1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: clamp(140px, 24vh, 220px);
+  max-width: 52%;
+  box-sizing: border-box;
+}
+
+.blocker-speech-bubble {
+  width: 80%;
+  height: auto;
+  position: absolute;
+  top: -1vh;
+  right: 0;
+  transform: translateY(-20%);
+  z-index: 2;
+  object-fit: contain;
+}
+
+.blocker-mascot-group {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+.blocker-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+  background: #FCF0EF;
+  border-radius: 16px;
+  padding: clamp(10px, 1.5vh, 14px) clamp(12px, 2vw, 18px);
+  box-shadow: 0 4px 12px rgba(234, 60, 91, 0.03);
+  border: 1px solid rgba(234, 60, 91, 0.05);
+  box-sizing: border-box;
+}
+
+.bottom-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.bottom-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(28px, 4vh, 34px);
+  height: clamp(28px, 4vh, 34px);
+  border-radius: 50%;
+  background: #FFE4E6;
+  color: #EA3C5B;
+  flex-shrink: 0;
+}
+
+.bottom-icon svg {
+  width: 55%;
+  height: 55%;
+}
+
+.bottom-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-text h3 {
+  font-size: clamp(0.78rem, 1.7vh, 0.95rem);
+  font-weight: 700;
+  color: #2A1713;
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.bottom-text p {
+  font-size: clamp(0.68rem, 1.5vh, 0.8rem);
+  color: #7D5C52;
+  margin: 0;
+  line-height: 1.25;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+}
+
+/* Smaller Screen Viewports - Display Blocker */
+@media (max-width: 1023px) {
+  .device-blocker {
+    display: flex;
+  }
+  
+  /* Disable main layout structures */
+  .viewport-container,
+  .scroll-runway,
+  .navbar,
+  .detail-overlay,
+  .splash-screen {
+    display: none !important;
+  }
+}
+
+/* Tablet screen re-formatting (horizontal layouts to utilize wider screens) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .blocker-card {
+    max-width: 680px;
+    max-height: 90dvh;
+  }
+  
+  .blocker-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+    padding: clamp(12px, 1.8vh, 18px);
+  }
+  
+  .bottom-item {
+    flex: 1;
+  }
+  
+  .blocker-middle {
+    gap: 24px;
+    margin: 2vh 0;
+  }
+  
+  .blocker-computer-card {
+    padding: 20px;
+    max-width: 46%;
+    min-height: 200px;
+  }
+  
+  .blocker-illus-container {
+    max-width: 50%;
+    height: 240px;
+  }
+}
+
+/* Failsafe scale media queries for short screens (iPhone SE, small landscape windows, etc.) */
+@media (max-height: 720px) {
+  .blocker-card {
+    transform: scale(0.94);
+    transform-origin: center center;
+  }
+}
+
+@media (max-height: 640px) {
+  .blocker-card {
+    transform: scale(0.88);
+    transform-origin: center center;
+  }
+}
+
+@media (max-height: 570px) {
+  .blocker-card {
+    transform: scale(0.80);
+    transform-origin: center center;
+  }
+}
+
+@media (max-height: 490px) {
+  .blocker-card {
+    transform: scale(0.70);
+    transform-origin: center center;
+  }
+}
+
 
 

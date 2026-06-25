@@ -111,78 +111,78 @@ export const artworkData: Record<string, Artwork> = {
   // Right wall of Segment 2 is at Z = -4180 (facing +Z, rotationY: 0)
   'landscape-1': {
     id: 'landscape-1',
-    title: "Mountain's Call",
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2024,
     medium: 'Oil on Canvas',
     dimensions: '100 x 80 cm',
-    description: 'Majestic peaks rise against a pristine sky in this breathtaking landscape. The interplay of light and shadow creates depth and drama.',
-    price: 280000,
+    description: '',
+    price: 0,
     section: 'landscapes',
     rotationY: 180, // Left wall
     position: { x: -1000, y: 0, z: -3420 }
   },
   'landscape-2': {
     id: 'landscape-2',
-    title: 'Sunset Symphony',
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2023,
     medium: 'Acrylic on Canvas',
     dimensions: '95 x 75 cm',
-    description: 'A harmonious blend of warm hues capturing the magical moment when day transforms into night. Colors dance across the canvas in perfect balance.',
-    price: 240000,
+    description: '',
+    price: 0,
     section: 'landscapes',
     rotationY: 0, // Right wall
     position: { x: -1400, y: 0, z: -4180 }
   },
   'landscape-3': {
     id: 'landscape-3',
-    title: 'Forest Whispers',
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2024,
     medium: 'Mixed Media',
     dimensions: '90 x 110 cm',
-    description: 'Deep within the woodland realm, nature speaks through layered textures and earthy tones. A meditation on wilderness and solitude.',
-    price: 310000,
+    description: '',
+    price: 0,
     section: 'landscapes',
     rotationY: 180, // Left wall
     position: { x: -1800, y: 0, z: -3420 }
   },
   'landscape-4': {
     id: 'landscape-4',
-    title: "Ocean's Embrace",
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2023,
     medium: 'Oil on Canvas',
     dimensions: '100 x 80 cm',
-    description: 'The vastness of the sea captured in flowing brushstrokes. Waves dance with light, creating a sense of movement and freedom.',
-    price: 290000,
+    description: '',
+    price: 0,
     section: 'landscapes',
     rotationY: 0, // Right wall
     position: { x: -2200, y: 0, z: -4180 }
   },
   'landscape-5': {
     id: 'landscape-5',
-    title: 'Desert Bloom',
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2024,
     medium: 'Watercolor on Paper',
     dimensions: '80 x 100 cm',
-    description: 'Life blooms in unexpected places. This landscape captures the resilience and beauty found in arid landscapes at dawn.',
-    price: 210000,
+    description: '',
+    price: 0,
     section: 'landscapes',
     rotationY: 180, // Left wall
     position: { x: -2600, y: 0, z: -3420 }
   },
   'landscape-6': {
     id: 'landscape-6',
-    title: "Meadow's Dream",
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2024,
     medium: 'Oil on Canvas',
     dimensions: '95 x 75 cm',
-    description: 'Rolling meadows stretch toward distant horizons in this pastoral landscape. A celebration of nature\'s peaceful abundance.',
-    price: 260000,
+    description: '',
+    price: 0,
     section: 'landscapes',
     rotationY: 0, // Right wall
     position: { x: -3000, y: 0, z: -4180 }
@@ -207,39 +207,39 @@ export const artworkData: Record<string, Artwork> = {
   },
   'abstract-2': {
     id: 'abstract-2',
-    title: 'Urban Energy',
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2023,
     medium: 'Mixed Media',
     dimensions: '95 x 95 cm',
-    description: 'Pulsing with vibrant energy, this abstract work captures the rhythm and dynamism of modern urban life.',
-    price: 250000,
+    description: '',
+    price: 0,
     section: 'abstracts',
     rotationY: -90, // Right wall
     position: { x: -3420, y: 0, z: -5000 }
   },
   'abstract-3': {
     id: 'abstract-3',
-    title: "Serenity's Echo",
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2024,
     medium: 'Oil on Canvas',
     dimensions: '90 x 90 cm',
-    description: 'Gentle waves of calm wash across the canvas. Soft colors and flowing forms evoke a sense of inner peace and meditation.',
-    price: 230000,
+    description: '',
+    price: 0,
     section: 'abstracts',
     rotationY: 90, // Left wall
     position: { x: -4180, y: 0, z: -5400 }
   },
   'abstract-4': {
     id: 'abstract-4',
-    title: 'Fragmented Light',
+    title: 'COMING SOON',
     artist: 'Sadhna Mehta',
     year: 2023,
     medium: 'Digital Art & Mixed Media',
     dimensions: '85 x 85 cm',
-    description: 'Light breaks into infinite fragments creating a kaleidoscopic effect. This piece explores the nature of perception and transformation.',
-    price: 190000,
+    description: '',
+    price: 0,
     section: 'abstracts',
     rotationY: -90, // Right wall
     position: { x: -3420, y: 0, z: -5800 }
