@@ -22,13 +22,13 @@ export const artworkData: Record<string, Artwork> = {
   // --- PORTRAITS SECTION (Segment 1: Z: 0 to -3800, X: 0, Y-Rot: 0) ---
   'portrait-1': {
     id: 'portrait-1',
-    title: "Soul's Mirror",
+    title: "Stillness Between Homes",
     artist: 'Sadhna Mehta',
-    year: 2024,
-    medium: 'Oil on Canvas',
+    year: 2023,
+    medium: 'Watercolour',
     dimensions: '80 x 100 cm',
     description: 'A contemplative portrait exploring the depths of human introspection. This piece captures the essence of self-reflection through carefully layered brushstrokes and a harmonious color palette.',
-    price: 250000,
+    price: 2000,
     section: 'portraits',
     imageUrl: '/assets/portrait-1.jpeg',
     rotationY: 90, // Left wall
@@ -36,13 +36,13 @@ export const artworkData: Record<string, Artwork> = {
   },
   'portrait-2': {
     id: 'portrait-2',
-    title: 'Gentle Gaze',
+    title: 'The Colour Of Devotion',
     artist: 'Sadhna Mehta',
     year: 2024,
     medium: 'Acrylic on Canvas',
     dimensions: '75 x 95 cm',
     description: "A serene portrait that radiates calm and warmth. The subject's eyes convey a story of peaceful contemplation and inner strength.",
-    price: 220000,
+    price: 30000,
     section: 'portraits',
     imageUrl: '/assets/portrait-2.jpeg',
     rotationY: -90, // Right wall
@@ -50,13 +50,13 @@ export const artworkData: Record<string, Artwork> = {
   },
   'portrait-3': {
     id: 'portrait-3',
-    title: 'Whispers of Time',
+    title: 'Whispers Of Water',
     artist: 'Sadhna Mehta',
     year: 2023,
-    medium: 'Mixed Media',
+    medium: 'Watercolour',
     dimensions: '85 x 105 cm',
     description: 'This portrait blends traditional portraiture with contemporary techniques, creating a striking visual narrative about the passage of time.',
-    price: 300000,
+    price: 1500,
     section: 'portraits',
     imageUrl: '/assets/portrait-3.jpeg',
     rotationY: 90, // Left wall
@@ -70,7 +70,7 @@ export const artworkData: Record<string, Artwork> = {
     medium: 'Oil on Canvas',
     dimensions: '80 x 100 cm',
     description: 'Bathed in the warm glow of evening light, this portrait captures a fleeting moment of beauty and tranquility.',
-    price: 280000,
+    price: 2000,
     section: 'portraits',
     imageUrl: '/assets/portrait-4.jpeg',
     rotationY: -90, // Right wall
@@ -78,13 +78,13 @@ export const artworkData: Record<string, Artwork> = {
   },
   'portrait-5': {
     id: 'portrait-5',
-    title: 'Essence of Being',
+    title: 'Lal Bagh Raja',
     artist: 'Sadhna Mehta',
-    year: 2023,
-    medium: 'Watercolor on Paper',
+    year: 2026,
+    medium: 'Acrylic on Canvas',
     dimensions: '70 x 90 cm',
     description: 'An ethereal portrait rendered with delicate watercolor techniques, expressing the innermost essence of the subject.',
-    price: 180000,
+    price: 20000,
     section: 'portraits',
     imageUrl: '/assets/portrait-5.jpeg',
     rotationY: 90, // Left wall
@@ -92,13 +92,13 @@ export const artworkData: Record<string, Artwork> = {
   },
   'portrait-6': {
     id: 'portrait-6',
-    title: 'Strength and Grace',
+    title: 'The House That Remembers',
     artist: 'Sadhna Mehta',
     year: 2024,
-    medium: 'Oil on Canvas',
+    medium: 'Watercolour',
     dimensions: '85 x 105 cm',
     description: 'A powerful portrait that combines bold technique with refined elegance, celebrating human dignity and character.',
-    price: 320000,
+    price: 2000,
     section: 'portraits',
     imageUrl: '/assets/portrait-6.jpeg',
     rotationY: -90, // Right wall
@@ -193,13 +193,13 @@ export const artworkData: Record<string, Artwork> = {
   // Right wall of Segment 3 is at X = -3420 (facing -X, rotationY: -90)
   'abstract-1': {
     id: 'abstract-1',
-    title: 'Quiet Introspection',
+    title: 'When The Sky Said Yes',
     artist: 'Sadhna Mehta',
     year: 2024,
-    medium: 'Oil on Canvas',
+    medium: 'Watercolour',
     dimensions: '80 x 100 cm',
     description: 'An intimate portrait that balances stillness and subtle emotion, rendered with luminous color and depth.',
-    price: 260000,
+    price: 1500,
     section: 'abstracts',
     imageUrl: '/assets/portrait-7.jpeg',
     rotationY: 90, // Left wall
